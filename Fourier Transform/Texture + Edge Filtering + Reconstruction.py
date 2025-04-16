@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Load the image in grayscale
-image = cv2.imread("PASTE FILE PATH HERE", cv2.IMREAD_GRAYSCALE)
+image = cv2.imread("PASTE FILE PATH HERE", cv2.IMREAD_GRAYSCALE) # <-----------------------------------------------------
 
 # Perform Fourier Transform
 dft = cv2.dft(np.float32(image), flags=cv2.DFT_COMPLEX_OUTPUT)
@@ -16,7 +16,7 @@ x, y = np.ogrid[:rows, :cols]
 distance = (x - crow)**2 + (y - ccol)**2
 
 # Create a Gaussian High-Pass Filter
-r_high = 70  # Radius for high-pass filter
+r_high = 70  # Radius for high-pass filter <-----------------------------------------------------------------------------
 sigma_high = r_high / 2  # Standard deviation for high-pass filter (adjust for smoothness)
 gaussian_high = 1 - np.exp(-distance / (2 * sigma_high**2))
 fshift_high = dft_shift * gaussian_high[:, :, np.newaxis]  # Apply the Gaussian High-Pass Filter to the shifted DFT
@@ -27,7 +27,7 @@ img_back_high = cv2.idft(f_ishift_high)
 img_back_high = cv2.magnitude(img_back_high[:, :, 0], img_back_high[:, :, 1])
 
 # Create a Gaussian Low-Pass Filter
-r_low = 40  # Radius for low-pass filter
+r_low = 40  # Radius for low-pass filter <-------------------------------------------------------------------------------
 sigma_low = r_low / 2  # Standard deviation for low-pass filter (adjust for smoothness)
 gaussian_low = np.exp(-distance / (2 * sigma_low**2))
 fshift_low = dft_shift * gaussian_low[:, :, np.newaxis]  # Apply the Gaussian Low-Pass Filter to the shifted DFT
